@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="format.css">
+	<title>Calculator</title>
+</head>
+<body>
+	<div class="calculator">
+		<input class="screen" id="screen" type="text" name="screen" value="">
+		<button class="number" id="button1">1</button>
+		<button class="number" id="button2">2</button>
+		<button class="number" id="button3">3</button>
+		<button class="number" id="button4">4</button>
+		<button class="number" id="button5">5</button>
+		<button class="number" id="button6">6</button>
+		<button class="number" id="button7">7</button>
+		<button class="number" id="button8">8</button>
+		<button class="number" id="button9">9</button>
+		<button class="number" id="button0">0</button>
+		<button class="operator" id="plus">+</button>
+		<button class="operator" id="minus">-</button>
+		<button class="operator" id="multiply">*</button>
+		<button class="operator" id="divide">/</button>
+		<button class="dot" id="dot">.</button>
+		<button class="backspace" id="backspace">⟵</button>
+		<button class="clear" id="clear">Clear</button>
+		<button class="submit" id="submit">=</button>
+	</div>
+</body>
+<script type="text/javascript">
+	screen = document.getElementById("screen");
+	for(var i=0; i<10; i++) {
+		button = document.getElementById("button"+i);
+		button.onclick = function() {
+			press(this.innerHTML);
+		}
+	}
+	document.getElementById("clear").onclick = function() {screen.value=""};
+	document.getElementById("submit").onclick = submit;
+	document.getElementById("backspace").onclick = backspace;
+	document.getElementById("plus").onclick = function() {press("+");};
+	document.getElementById("minus").onclick = function() {press("-");};
+	document.getElementById("multiply").onclick = function() {press("*");};
+	document.getElementById("divide").onclick = function() {press("/");};
+	document.getElementById("dot").onclick = function() {press(".");};
+	function press(id) {
+		screen.value = screen.value.concat(id);
+	}
+	function submit() {
+		screen.value = eval(screen.value);
+	}
+	function backspace() {
+		screen.value = screen.value.slice(0,-1);
+	}
+</script>

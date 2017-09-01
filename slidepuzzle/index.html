@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="format.css">
+	<title>Slide-puzzle</title>
+</head>
+
+<body>
+	<div class="grid">
+		<div id="field" class="field">
+			<button class="anime"></button>
+		</div>
+	</div>
+</body>
+<script>
+	function setGridPos(tile,x,y) {
+		tile.dataset.x = x;
+		tile.dataset.y = y;
+		tile.style["grid-row-start"] = y;
+		tile.style["grid-row-end"] = y;
+		tile.style["grid-column-start"] = x;
+		tile.style["grid-column-end"] = x;
+	}
+	var sizeX = 4;
+	var sizeY = 4;
+	var shuffles = sizeX*sizeY*25;
+	init();
+	function init() {
+		for(var i=1; i<=sizeX*sizeY; i++) {
+			var tile = document.createElement("button");
+			if(i==sizeX*sizeY) {
+				tile.className = "tile"+0;
+			}	else	{
+				tile.className = "tile"+i;
+				tile.appendChild(document.createTextNode(i));
+				tile.onclick = function() {clicked(this);check();};
+			}
+			setGridPos(tile,((i-1)%sizeX+1),(Math.floor((i-1)/sizeX)+1));
+			tile.dataset.x = ((i-1)%sizeX+1);
+			tile.dataset.y = (Math.floor((i-1)/sizeX)+1);
+			document.getElementById("field").appendChild(tile);
+		}
+		shuffle();
+	}
+	function shuffle() {
+		for(var i=0; i<shuffles; i++) {
+			var id = Math.floor(Math.random()*sizeX*sizeY);
+			switch(Math.floor(Math.random()*4)) {
+				case 0: id++; break;
+				case 1: id--; break;
+				case 2: id+=sizeX; break;
+				case 3: id-=sizeX; break;
+			}
+			if(id>=0&&id<sizeX*sizeY) {
+				clicked(document.getElementsByClassName("tile"+id)[0]);
+			}
+		}
+	}
+
+	function clicked(tile) {
+		var x = tile.dataset.x;
+		var y = tile.dataset.y;
+		var tile0 = document.getElementsByClassName("tile"+0)[0];
+		var anime = document.getElementsByClassName("anime")[0];
+		var tx = tile0.dataset.x;
+		var ty = tile0.dataset.y;
+		if((Math.abs(tx-x)==1&&Math.abs(ty-y)==0) || (Math.abs(tx-x)==0&&Math.abs(ty-y)==1)) {
+			setGridPos(tile,tx,ty);
+			setGridPos(tile0,x,y);
+			setGridPos(anime,tx,ty);
+			anime.id = "none";
+
+			switch(y-ty) {
+				case 1: tile.id = "up"; break;
+				case -1: tile.id = "down"; break;
+			}
+			switch(x-tx) {
+				case 1: tile.id = "left"; break;
+				case -1: tile.id = "right"; break;
+			}
+			setTimeout(function() {
+			    tile.id = "none";
+			    anime.id = "invis";
+			}, 500);
+		}
+	}
+	function check() {
+		var finished = true;
+		for(var i=1; i<sizeX*sizeY; i++) {
+			var tile = document.getElementsByClassName("tile"+i)[0];
+			var x = parseInt(tile.dataset.x);
+			var y = parseInt(tile.dataset.y);
+			if(!( x==((i-1)%sizeX+1)&&y==(Math.floor((i-1)/sizeX)+1) )) {
+				finished = false;
+			}
+		}
+		if(finished) {shuffle();alert("finished");}
+	}
+</script>

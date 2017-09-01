@@ -1,0 +1,170 @@
+button::-moz-focus-inner {
+	border: 0;
+}
+body {
+	background-color: #222222;
+	margin: 0px;
+}
+html {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.grid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto auto;
+	grid-template-areas: 
+		"topNav	topNav"
+		"field	.";
+}
+.topNav {
+	grid-area: topNav;
+	z-index: 5;
+	top: 0px;
+	width: 100%;
+	padding: 5px;
+	background-color: #555555;
+	color: #dddddd;
+
+	grid-template-columns: 128px 128px 1fr;
+	grid-template-rows: 48px auto;
+	grid-template-areas: 
+		"select	reset	text"
+		".		.		.";
+}
+.select {
+	grid-area: select;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border-style: solid;
+	border-width: 3px;
+	border-radius: 3px;
+	border-color: #000000;
+	background-color: #eeeeee;
+}
+.select option {
+	border-style: none;
+	background-color: #eeeeee;
+}
+.reset {
+	grid-area: reset;
+	border-style: solid;
+	border-width: 3px;
+	border-radius: 5px;
+	border-color: #000000;
+	background-color: #eeeeee;
+}
+.field {
+	grid-area: field;
+	text-align: center;
+	align-self: center;
+	background-color: #cccccc;
+	border-radius: 15px;
+	padding: 15px;
+	margin: 15px;
+
+	display: grid;
+	grid-auto-rows: 65px;
+	grid-auto-columns: 65px;
+	grid-gap: 10px;
+}
+.field button {
+	font-size: 24px;
+	background-color: #aaaaaa;
+	border-radius: 7px;
+	outline: none;
+	border: none;
+}
+.field button#tile {
+	transform: translateY(-6px);
+	box-shadow: 0 8px #999999;
+}
+.field button#tile:hover {
+	z-index: 1;
+	background-color: #888888;
+	box-shadow: 0 8px #777777;
+	animation: select 0.2s forwards;
+}
+.field button#tile:active {
+	z-index: 2;
+	background-color: #666666;
+	transform: translateY(-12px);
+	box-shadow: 0 8px #555555;
+	animation: pick 0.2s forwards;
+}
+.field button#tile:not(:hover) {
+	animation: unselect 0.2s forwards;
+}
+.field button#empty {
+	z-index: 0;
+	background-color: #dddddd;
+	border-style: none;
+	transform: translateY(0px);
+	box-shadow: none;
+	animation: none;
+}
+@keyframes select {
+	from {
+		background-color: #aaaaaa;
+		transform: translateY(-6px);
+		box-shadow: 0 8px #999999;
+	}
+	to {
+		background-color: #888888;
+		transform: translateY(-10px);
+		box-shadow: 0 8px #777777;
+	}
+}
+@keyframes unselect {
+	from {
+		background-color: #888888;
+		transform: translateY(-10px);
+		box-shadow: 0 8px #777777;
+	}
+	to {
+		background-color: #aaaaaa;
+		transform: translateY(-6px);
+		box-shadow: 0 8px #999999;
+	}
+}
+@keyframes pick {
+	from {
+		background-color: #888888;
+		transform: translateY(-10px);
+		box-shadow: 0 8px #777777;
+	}
+	to {
+		background-color: #666666;
+		transform: translateY(-14px);
+		box-shadow: 0 8px #555555;
+	}
+}
+.anime {
+	z-index: 2;
+}
+.anime#none {
+	visibility: hidden;
+}
+.anime#picked {
+	animation: picked 1s;
+}
+@keyframes picked {
+	from {
+		background-color: #666666;
+		transform: translateY(-14px);
+		box-shadow: 0 8px #555555;
+	}
+	to {
+		background-color: #666666;
+		transform: translateY(-14px);
+		box-shadow: 0 8px #555555;
+
+		opacity: 0;
+	}
+}

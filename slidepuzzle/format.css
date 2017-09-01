@@ -1,0 +1,151 @@
+button::-moz-focus-inner {
+  border: 0;
+}
+body {
+	background-color: #222222;
+}
+.grid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+.field {
+	text-align: center;
+	align-self: center;
+	background-color: #cccccc;
+	padding: 5px;
+	border-radius: 15px;
+	padding: 15px;
+
+	display: grid;
+	grid-auto-rows: 130px;
+	grid-auto-columns: 130px;
+	grid-gap: 10px;
+}
+.field button {
+	font-size: 48px;
+	background-color: #aaaaaa;
+	border-radius: 7px;
+	outline: none;
+	border: none;
+	transform: translateY(-6px);
+	box-shadow: 0 8px #999999;
+}
+.field button:hover {
+	z-index: 1;
+	background-color: #888888;
+	box-shadow: 0 8px #777777;
+	animation: select 0.2s forwards;
+}
+.field button:active {
+	z-index: 2;
+	background-color: #666666;
+	transform: translateY(-12px);
+	box-shadow: 0 8px #555555;
+	animation: pick 0.2s forwards;
+}
+.field button:not(:hover) {
+	animation: unselect 0.2s forwards;
+}
+.field button.tile0 {
+	z-index: 0;
+	background-color: #dddddd;
+	border-style: none;
+	transform: translateY(0px);
+	box-shadow: none;
+	animation: none;
+}
+.field button.anime {
+	z-index: 0;
+	background-color: #dddddd;
+	border-style: none;
+	transform: translateY(0px);
+	box-shadow: none;
+	animation: none;
+}
+#invis {
+	visibility: hidden;
+}
+@keyframes select {
+	from {
+		background-color: #aaaaaa;
+		transform: translateY(-6px);
+		box-shadow: 0 8px #999999;
+    }
+    to {
+    	background-color: #888888;
+		transform: translateY(-10px);
+		box-shadow: 0 8px #777777;
+    }
+}
+@keyframes unselect {
+	from {
+		background-color: #888888;
+		transform: translateY(-10px);
+		box-shadow: 0 8px #777777;
+    }
+    to {
+    	background-color: #aaaaaa;
+		transform: translateY(-6px);
+		box-shadow: 0 8px #999999;
+    }
+}
+@keyframes pick {
+    from {
+		background-color: #888888;
+		transform: translateY(-10px);
+		box-shadow: 0 8px #777777;
+    }
+    to {
+    	background-color: #666666;
+		transform: translateY(-14px);
+		box-shadow: 0 8px #555555;
+    }
+}
+#up {
+	z-index: 1;
+	animation: up 0.5s;
+}
+#down {
+	z-index: 1;
+	animation: down 0.5s;
+}
+#left {
+	z-index: 1;
+	animation: left 0.5s;
+}
+#right {
+	z-index: 1;
+	animation: right 0.5s;
+}
+@keyframes up {
+	from {
+		transform: translateY(130px);
+    }
+    to {
+		transform: translateY(-10px);
+    }
+}
+@keyframes down {
+	from {
+		transform: translateY(-150px);
+    }
+    to {
+		transform: translateY(-10px);
+    }
+}
+@keyframes left {
+	from {
+		transform: translate(140px,-10px);
+    }
+    to {
+		transform: translate(0px,-10px);
+    }
+}
+@keyframes right {
+	from {
+		transform: translate(-140px,-10px);
+    }
+    to {
+		transform: translate(0px,-10px);
+    }
+}

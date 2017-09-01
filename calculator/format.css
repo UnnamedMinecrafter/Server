@@ -1,0 +1,109 @@
+head {
+	height: 0px;
+}
+body {
+	background-color: #222222;
+	margin: 0px;
+}
+.calculator {
+	margin: 10px;
+	padding: 10px;
+	background-color: #cccccc;
+	border-radius: 10px;
+
+	display: grid;
+	grid-template-columns: repeat(4,1fr);
+	grid-template-rows: repeat(6,1fr);
+	grid-template-areas: 
+		"screen screen screen screen"
+		"button1 button2 button3 plus"
+		"button4 button5 button6 minus"
+		"button7 button8 button9 multiply"
+		"backspace button0 dot divide"
+		"clear clear submit submit";
+	grid-gap: 10px;
+
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+.screen {
+	grid-area: screen;
+	font-size: 24px;
+	padding: 10px;
+}
+button {
+	font-size: 24px;
+	transform: translateY(-3px);
+	display: inline-block;
+	cursor: pointer;
+	color: #eeeeee;
+	background-color: #aaaaaa;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0 4px #999999;
+}
+button:hover {
+	background-color: #888888;
+	box-shadow: 0 4px #777777;
+}
+button:active {
+	background-color: #666666;
+	transform: translateY(0px);
+	box-shadow: 0 1px #555555;
+}
+.clear {
+	grid-area: clear;
+}
+.submit {
+	grid-area: submit;
+}
+.dot {
+	grid-area: dot;
+}
+#plus {
+	grid-area: plus;
+}
+#minus {
+	grid-area: minus;
+}
+#multiply {
+	grid-area: multiply;
+}
+#divide {
+	grid-area: divide;
+}
+#button1 {
+	grid-area: button1;
+}
+#button2 {
+	grid-area: button2;
+}
+#button3 {
+	grid-area: button3;
+}
+#button4 {
+	grid-area: button4;
+}
+#button5 {
+	grid-area: button5;
+}
+#button6 {
+	grid-area: button6;
+}
+#button7 {
+	grid-area: button7;
+}
+#button8 {
+	grid-area: button8;
+}
+#button9 {
+	grid-area: button9;
+}
+#button0 {
+	grid-area: button0;
+}

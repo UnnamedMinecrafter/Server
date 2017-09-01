@@ -1,0 +1,21 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="66" width="66" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect rx="7" id="svg_2" height="58" width="58" y="5" x="3" stroke-width="1.5" fill="#999999"/>
+  <rect rx="7" id="svg_1" height="58" width="58" y="1" x="3" stroke-width="1.5" fill="#aaaaaa"/>
+  <ellipse ry="20" rx="20" id="svg_3" cy="30" cx="32" stroke-width="1.5" fill="#000000"/>
+  <rect id="svg_4" height="50" width="7.865167" y="5" x="28" stroke-width="1.5" fill="#000000"/>
+  <rect transform="rotate(90 31.93258285522461,30.000000000000004) " id="svg_5" height="50" width="7.865167" y="5" x="28" stroke-width="1.5" fill="#000000"/>
+  <rect transform="rotate(45 31.932582855224595,30.000000000000004) " id="svg_6" height="50" width="7.865167" y="5" x="28" stroke-width="1.5" fill="#000000"/>
+  <rect transform="rotate(-45 31.932582855224595,29.99999999999999) " id="svg_7" height="50" width="7.865167" y="5" x="28" stroke-width="1.5" fill="#000000"/>
+  <ellipse ry="5" rx="5" id="svg_8" cy="23" cx="24.80899" stroke-width="1.5" fill="#ffffff"/>
+ </g>
+</svg>

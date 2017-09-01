@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="format.css">
+		<title>Mine Sweeper</title>
+		<link rel="icon" type="image/png" href="img/favicon.png">
+		<link rel="icon" type="image/svg" href="img/favicon.svg">
+	</head>
+<body>
+	<div class="grid">
+		<div class="topNav">
+			<select class="select">
+				<option value="9 9 10">9x9 10💣</option>
+				<option value="16 8 22">16x8 22💣</option>
+				<option value="16 16 40">16x16 40💣</option>
+			</select>
+			<button class="reset" type="button" onclick="reset()">reset</button>
+			 - Minesweeper
+		</div>
+		<div id="field" class="field">
+			<button id="none" class="anime">
+		</div>
+	</div>
+</body>
+<script>
+	Element.prototype.remove = function() {
+	    this.parentElement.removeChild(this);
+	}
+	NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+		for(var i = this.length - 1; i >= 0; i--) {
+			if(this[i] && this[i].parentElement) {
+				this[i].parentElement.removeChild(this[i]);
+			}
+		}
+	}
+	function setGridPos(tile,x,y) {
+		tile.dataset.x = x;
+		tile.dataset.y = y;
+		tile.style["grid-row-start"] = y;
+		tile.style["grid-row-end"] = y;
+		tile.style["grid-column-start"] = x;
+		tile.style["grid-column-end"] = x;
+	}
+
+	var select = document.getElementsByClassName("select")[0];
+	var selected;
+	var sizeX;
+	var sizeY;
+	var mines;
+	var minesLeft;
+	var pattern = [[-1,1,1],[0,1,1],[1,1,1],[-1,0,1],[1,0,1],[-1,-1,1],[0,-1,1],[1,-1,1]];
+	var anime = document.getElementsByClassName("anime")[0];
+	setGridPos(anime,1,1);
+	reset();
+	function reset() {
+		selected = select.value;
+		sizeX = parseInt(selected.split(" ")[0]);
+		sizeY = parseInt(selected.split(" ")[1]);
+		mines = parseInt(selected.split(" ")[2]);
+
+		document.getElementsByClassName("tile").remove();
+
+		for(var y=1; y<=sizeY; y++) {
+			for(var x=1; x<=sizeX; x++) {
+				var tile = document.createElement("button");
+				tile.className = "tile tile"+x+"-"+y;
+				tile.id = "tile";
+				tile.dataset.mine = "false";
+				tile.appendChild(document.createTextNode(""));
+				tile.onclick = function() {clicked(this);check();};
+				setGridPos(tile,x,y);
+				document.getElementById("field").appendChild(tile);
+			}
+		}
+
+		minesLeft = 0;
+		while(minesLeft<mines) {
+			var x = Math.floor(Math.random()*sizeX)+1;
+			var y = Math.floor(Math.random()*sizeY)+1;
+
+			tile = document.getElementsByClassName("tile"+x+"-"+y)[0];
+			if(tile.dataset.mine=="false") {
+				tile.dataset.mine = "true";
+				minesLeft++;
+			}
+		}
+	}
+	function clicked(tile) {
+		if(tile.id!="empty") {
+			tile.id = "empty";
+			
+			var x = parseInt(tile.dataset.x);
+			var y = parseInt(tile.dataset.y);
+			var count = 0;
+			for(var i=0; i<pattern.length; i++) {
+				var px = x+pattern[i][0];
+				var py = y+pattern[i][1];
+				var ptile = document.getElementsByClassName("tile"+px+"-"+py)[0];
+				if(ptile!=undefined) {
+					if(ptile.dataset.mine=="true") {
+						count+=pattern[i][2];
+					}
+				}
+			}
+			if(count==0) {
+				for(var i=0; i<pattern.length; i++) {
+					var px = x+pattern[i][0];
+					var py = y+pattern[i][1];
+					var ptile = document.getElementsByClassName("tile"+px+"-"+py)[0];
+					if(ptile!=undefined) {
+						clicked(ptile);
+					}
+				}
+			}
+			tile.innerHTML = count;
+
+			setGridPos(anime,tile.dataset.x,tile.dataset.y);
+			anime.id = "picked";
+			setTimeout(function() {
+				anime.id = "none";
+			}, 250);
+		}
+		if(tile.dataset.mine=="true") {alert("BOOM!!");reset();}
+	}
+	function check() {
+		var finished = true;
+		var tiles = document.getElementsByClassName("tile");
+		for(var i=0; i<tiles.length; i++) {
+			var tile = tiles[i];
+			if(!(tile.id=="empty"||tile.dataset.mine=="true")) {
+				console.log(tile);
+				finished = false;
+			}
+		}
+		if(finished) {
+			alert("WON!!");
+			reset();
+		}
+	}
+	/*
+	
+	var sizeX = 4;
+	var sizeY = 4;
+	var shuffles = sizeX*sizeY*25;
+	init();
+	function init() {
+		for(var i=1; i<=sizeX*sizeY; i++) {
+			var tile = document.createElement("button");
+			if(i==sizeX*sizeY) {
+				tile.className = "tile"+0;
+			]	else	{
+				tile.className = "tile"+i;
+				tile.appendChild(document.createTextNode(i));
+				tile.onclick = function() {clicked(this);check();];
+			]
+			setGridPos(tile,((i-1)%sizeX+1),(Math.floor((i-1)/sizeX)+1));
+			tile.dataset.x = ((i-1)%sizeX+1);
+			tile.dataset.y = (Math.floor((i-1)/sizeX)+1);
+			document.getElementById("field").appendChild(tile);
+		]
+		shuffle();
+	]
+	function shuffle() {
+		for(var i=0; i<shuffles; i++) {
+			var id = Math.floor(Math.random()*sizeX*sizeY);
+			switch(Math.floor(Math.random()*4)) {
+				case 0: id++; break;
+				case 1: id--; break;
+				case 2: id+=sizeX; break;
+				case 3: id-=sizeX; break;
+			]
+			if(id>=0&&id<sizeX*sizeY) {
+				clicked(document.getElementsByClassName("tile"+id)[0]);
+			]
+		]
+	]
+
+	function clicked(tile) {
+		var x = tile.dataset.x;
+		var y = tile.dataset.y;
+		var tile0 = document.getElementsByClassName("tile"+0)[0];
+		var anime = document.getElementsByClassName("anime")[0];
+		var tx = tile0.dataset.x;
+		var ty = tile0.dataset.y;
+		if((Math.abs(tx-x)==1&&Math.abs(ty-y)==0) || (Math.abs(tx-x)==0&&Math.abs(ty-y)==1)) {
+			setGridPos(tile,tx,ty);
+			setGridPos(tile0,x,y);
+			setGridPos(anime,tx,ty);
+			anime.id = "none";
+
+			switch(y-ty) {
+				case 1: tile.id = "up"; break;
+				case -1: tile.id = "down"; break;
+			]
+			switch(x-tx) {
+				case 1: tile.id = "left"; break;
+				case -1: tile.id = "right"; break;
+			]
+			setTimeout(function() {
+			    tile.id = "none";
+			    anime.id = "invis";
+			], 250);
+		]
+	]
+	function check() {
+		var finished = true;
+		for(var i=1; i<sizeX*sizeY; i++) {
+			var tile = document.getElementsByClassName("tile"+i)[0];
+			var x = parseInt(tile.dataset.x);
+			var y = parseInt(tile.dataset.y);
+			if(!( x==((i-1)%sizeX+1)&&y==(Math.floor((i-1)/sizeX)+1) )) {
+				finished = false;
+			]
+		]
+		if(finished) {shuffle();alert("finished");]
+	]*/
+</script>

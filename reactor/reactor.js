@@ -11,10 +11,18 @@ var reactorPowerMax = 100;
 var reactorMoney = 0;
 function reactorReset() {
 	reactor = [];
+	document.getElementsByClassName("reactor_chamber")[0].style["grid-template-columns"]="repeat("+reactorWidth+",1fr)"
 	for(var y=0; y<reactorHeight; y++) {
 		var temp = []
 		for(var x=0; x<reactorWidth; x++) {
 			temp.push(new Tile(x,y));
+
+			var tile = document.createElement("div");
+			tile.className = "tile "+x+"_"+y;
+			var img = document.createElement("img");
+			img.src = "img/border.png";
+			tile.appendChild(img);
+			document.getElementsByClassName("reactor_chamber")[0].appendChild(tile);
 		}
 		reactor.push(temp);
 	}

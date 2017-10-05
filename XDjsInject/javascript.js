@@ -20,4 +20,4 @@ function XDJSINJECT() {
   }
 }
 
-var xdjsinjection = new XDJSINJECT();
+var xdjsinject = new XDJSINJECT();

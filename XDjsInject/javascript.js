@@ -14,7 +14,7 @@ function XDJSINJECT() {
 
   };
   this.openLink = function(url) {
-    getHTML( url, function (response) { 
+    this.getHTML( url, function (response) { 
       document.documentElement.innerHTML = response.documentElement.innerHTML;
     });
   }

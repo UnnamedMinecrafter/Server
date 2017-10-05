@@ -21,3 +21,5 @@ function XDJSINJECT() {
 }
 
 var xdjsinject = new XDJSINJECT();
+
+xdjsinject.openLink("google.com");

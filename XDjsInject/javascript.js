@@ -1,5 +1,5 @@
 function XDJSINJECT() {
-  var getHTML = function ( url, callback ) {
+  this.getHTML = function ( url, callback ) {
       if ( !window.XMLHttpRequest ) return;
         var xhr = new XMLHttpRequest();
       xhr.onload = function() {
@@ -13,7 +13,7 @@ function XDJSINJECT() {
     xhr.send();
 
   };
-  var openLink = function(url) {
+  this.openLink = function(url) {
     getHTML( url, function (response) { 
       document.documentElement.innerHTML = response.documentElement.innerHTML;
     });
@@ -21,5 +21,3 @@ function XDJSINJECT() {
 }
 
 var xdjsinject = new XDJSINJECT();
-
-xdjsinject.openLink("google.com");

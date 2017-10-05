@@ -1,4 +1,4 @@
-static class xsjsinjection() {
+class xsjsinjection {
   var getHTML = function ( url, callback ) {
       if ( !window.XMLHttpRequest ) return;
         var xhr = new XMLHttpRequest();

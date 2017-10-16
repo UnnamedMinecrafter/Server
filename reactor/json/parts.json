@@ -1,0 +1,5 @@
+var parts = {
+  "index":["uraniumCell","plutoniumCell","vent","capacitor"],
+  "uraniumCell":{"baseDurability":16,"basePower":1,"baseHeat":1,"cost":8},
+  "plutoniumCell":{"baseDurability":64,"basePower":128,"baseHeat":128,"cost":4096}
+}

@@ -56,14 +56,12 @@ function dragover(ev) {
 
 function dragstart(ev) {
 	//console.log("dragstart",ev);
-	//ev.dataTransfer.setData("text", ev.target.id);
 	ev.target.id = "drag";
 }
 
 function drop(ev) {
 	//console.log("ondrop",ev);
 	ev.preventDefault();
-	//var id = ev.dataTransfer.getData("text");
 	var item = document.getElementById("drag");
 	item.id = "";
 

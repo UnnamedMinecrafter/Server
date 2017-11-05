@@ -6,19 +6,42 @@ body {
 
 .background {
 	position: fixed;
+	top: 0px;
 	display: block;
 	z-index: -10;
 }
 
-.content {
+.contentWrapper {
 	background-color: #ffffff;
-	margin: 25px;
+	margin: 50px;
 	border-radius: 15px;
 	padding: 15px;
+	color: #333333;
+}
+
+.content {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-gap: 15px;
+	grid-template-columns: repeat(auto-fit,minmax(40vh,1fr));
+	margin-bottom: 25px;
 }
 
 .container {
-	color: #333333;
+	border-radius: 15px;
+	padding: 15px;
+	background-color: #eeeeee;
+}
+
+.title {
+	margin: 10px;
+	text-align: center;
+	font-size: 56px;
+	font-weight: 900;
+}
+
+.containerTitle {
+	margin: 10px;
+	text-align: center;
+	font-size: 32px;
+	font-weight: 900;
 }

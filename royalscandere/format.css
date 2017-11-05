@@ -12,7 +12,7 @@ body {
 }
 
 .contentWrapper {
-	background-color: #ffffff;
+	background: #ffffff url(img/backgroundTexture.jpg) repeat ;
 	margin: 50px;
 	border-radius: 15px;
 	padding: 15px;

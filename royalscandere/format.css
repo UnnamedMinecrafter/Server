@@ -1,0 +1,24 @@
+body {
+	margin: 0px;
+	background-color: #222222;
+	color: #dddddd;
+}
+
+.background {
+	position: fixed;
+	display: block;
+	z-index: -10;
+}
+
+.content {
+	background-color: #ffffff;
+	margin: 25px;
+	border-radius: 15px;
+	padding: 15px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.container {
+	color: #333333;
+}

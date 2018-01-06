@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>#339 [Intermediate] A car renting problem</title>
+</head>
+<body>
+	<div id="input_wrapper">
+		<input id="input" type="text" value="">
+		<button id="start">start</button>
+		<button id="random">random</button>
+		<button id="clearLog">clear log</button>
+		<div id="stacklength"></div>
+	</div>
+	<div id="log"></div>
+	<script type="text/javascript">
+		var inputBox = document.getElementById("input");
+		var startButton = document.getElementById("start");
+		var randomButton = document.getElementById("random");
+		var clearLogButton = document.getElementById("clearLog");
+		var logContainer = document.getElementById("log");
+		startButton.addEventListener("click",start,false);
+		randomButton.addEventListener("click",random,false);
+		clearLogButton.addEventListener("click",clearLog,false);
+
+
+		function log(text) {
+			logContainer.appendChild(document.createTextNode(text));
+			logContainer.appendChild(document.createElement("br"));
+		}
+		function clearLog() {
+			logContainer.innerHTML = "";
+		}
+
+		function random() {
+			var number = parseInt(inputBox.value);
+			inputBox.value = "";
+			for(var i=0; i<number; i++) {
+				var r = Math.floor(Math.random()*7*number+1);
+				inputBox.value = inputBox.value + " " + r + " " + (r + Math.floor(Math.random()*14+1));
+			}
+			inputBox.value = inputBox.value.slice(1,inputBox.value.length);
+		}
+
+		function start() {
+			var requests = [];
+			var input = inputBox.value.replace('(',' ').replace(')',' ').split(" ");
+			for(var i=0; i<input.length; i+=2) {
+				requests.push([parseInt(input[i]),parseInt(input[i+1])]);
+			}
+			log("in: " + requests);
+
+			var i = 0;
+			while(i<requests.length-1) {
+				if(requests[i][0]<=requests[i+1][0]) {
+					i++;
+				} else {
+					var temp = requests[i+1];
+					requests[i+1] = requests[i];
+					requests[i] = temp;
+					if(i>0) {i--;}
+				}
+			}
+			log("sort: " + requests);
+			
+			cur = {
+				requests:requests,
+				stack:[
+					[0,[]]
+					]
+				};
+
+		}
+
+		function solve(requests,index,choices) {
+			if(index < requests.length) {
+				var lastIndex = choices.length;
+				var lastRequest = [0,0];
+				while(!choices[lastIndex]&&lastIndex>=0) {
+					lastIndex--;
+				}
+				if(choices.length>0&&lastIndex>=0) {
+					lastRequest = requests[lastIndex];
+				}
+				if(lastRequest[1] < requests[index][0]) {
+
+					stack.push([index+1,choices.concat([true])]);
+				}
+				stack.push([index+1,choices.concat([false])]);
+			} else {
+				var score = 0;
+				for(var i=0; i<choices.length; i++) {
+					if(choices[i]) {
+						score++;
+					}
+				}
+				reportSolution(score,choices);
+			}
+		}
+ 
+		function reportSolution(score,choices) {
+			var bs = 0;
+			if(cur.bestScore!=undefined) {
+				bs = cur.bestScore;
+			}
+			if(bs<score) {
+				cur.bestScore = score;
+				cur.bestChoices = choices;
+			}
+		}
+
+		function logSolution(score,choices) {
+			log("----------");
+			log("solution:");
+			log("  score: " + score + "/" + cur.requests.length);
+			var r = [];
+			for(var i=0; i<cur.requests.length; i++) {
+				if(choices[i]) {
+					r.push(cur.requests[i]);
+				}
+			}
+			var s = "";
+			for(var i=0; i<r.length; i++) {
+				s = s + " ("+r[i][0]+", "+r[i][1]+")";
+			}
+			console.log(r,s);
+			log("  requests: " + s);
+			log("  choices: " + choices);
+			log("----------");
+		}
+
+		var cur
+		var stack;
+		function animate() {
+			requestAnimationFrame(animate);
+			for(var i=0; i<500; i++) {
+				if(cur!=undefined) {
+					if(cur.stack.length > 0) {
+						stack = cur.stack;
+						var curArgs = cur.stack.pop();;
+						solve(cur.requests,curArgs[0],curArgs[1]);
+						cur.stack = stack;
+					}
+
+					document.getElementById("stacklength").innerHTML = cur.stack.length;
+
+					if(cur.stack.length==0) {
+						logSolution(cur.bestScore,cur.bestChoices);
+						console.log(cur);
+						cur = undefined;
+					}
+				}
+			}
+		}
+		animate();
+	</script>
+</body>
+</html>

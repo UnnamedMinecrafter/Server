@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>#344 [Easy] Baum-Sweet Sequence</title>
+</head>
+<body>
+	<div id="output"></div>
+	<script type="text/javascript">
+		var out = document.getElementById("output");
+
+		var number = 0;
+
+		function binaryOf(n) {
+			var b = "";
+			while(n>0) {
+				b = b + n%2;
+				n = Math.floor(n/2);
+			}
+			return b;
+		}
+		function isTrue(b) {
+			var t = true;
+			var c = 0;
+			var i = 0;
+			while(t==true&&i<b.length) {
+				var p = b.charAt(i);
+				if(p==1) {
+					if(c%2==1) {
+						t = false;
+					} else {
+						c = 0;
+					}
+				} else {
+					c++;
+				}
+				i++;
+			}
+			return t;
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			for(var i=0; i<10; i++) {
+				var output = number + ": " + isTrue(binaryOf(number));
+
+				out.appendChild(document.createTextNode(output));
+				out.appendChild(document.createElement("br"));
+				
+				number++;
+			}
+		}
+		animate();
+	</script>
+</body>
+</html>

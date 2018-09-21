@@ -60,12 +60,65 @@ interactions.push({
 		}
 		console.log("interaction#1 loaded");
 	}
+});interactions.push({
+	name:/Interaction#2/g,
+	html:`
+		<div id="interaction-sieb-des-erathostenes" style="
+				border: 5px solid #d5e7f0; border-radius: 10px; padding: 5px;
+				background-color: #e9f2f5;
+			">
+			<div id="controls">
+				<button id="input-step">Step</button>
+			</div>
+			<div id="output-numbers" style="overflow: auto;"></div>
+		</div>
+	`,
+	script:()=>{
+		let step = document.querySelector("#input-step");
+		let numbers = document.querySelector("#output-numbers");
+
+		let array = [];
+		for (let i = 2; i < 1000; i++) {
+			array.push({n:i,prime:false,notprime:false});
+		}
+
+		step.addEventListener("click",()=>{
+			let n = {n:0};
+			for (let i = 0; i < array.length; i++) {
+				if(n.n<1) {
+					if(!array[i].notprime && !array[i].prime) {
+						array[i].prime = true;
+						n = array[i];
+					}
+				}  else  {
+					if(array[i].n%n.n==0) {
+						array[i].notprime = true;
+					}
+				}
+			}
+			console.log(n,array);
+
+			numbers.innerHTML = "";
+			for (let i = 0; i < array.length; i++) {
+				let n = array[i];
+				let div = document.createElement("div");
+				div.innerHTML = n.n;
+				div.style.display = "inline";
+				div.style.margin = "2px 3px 2px 0px";
+				div.style["background-color"] = n.prime?"#00ff00":(n.notprime?"#ff0000":"#eeeeee");
+				numbers.appendChild(div);
+			}
+		});
+	}
 });
 
 for (let i = 0; i < interactions.length; i++) {
 	let interaction = interactions[i];
-	content = content.replace(interaction.name,interaction.html);
-	setTimeout(interaction.script,0);
+	let r = content.replace(interaction.name,interaction.html);
+	if(r!=content) {
+		setTimeout(interaction.script,0);
+	}
+	content = r;
 }
 
 document.querySelector("#wikipage-inner").innerHTML = content;

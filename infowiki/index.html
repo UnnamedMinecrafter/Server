@@ -3,15 +3,44 @@
 <head>
 	<meta charset="utf-8">
 	<title>GSG InfoWiki Interactibles</title>
+	<style type="text/css">
+		body{
+			background-color: #222222;
+		}
+
+		#linkwrapper{
+			display: inline;
+
+			background-color: #333333;
+			border: 2px solid #555555;
+			border-radius: 2px;
+		}
+		#link{
+			color: #ffaaaa;
+			text-decoration: none;
+		}
+
+		#textwrapper{
+			display: inline;
+
+			background-color: #ffffff;
+			border: 5px solid #eeeeee;
+			border-radius: 2px;
+		}
+	</style>
 </head>
-<body>
-<a href='
-javascript:function r(){
-let script = document.createElement("script");
-script.src = "https://rawgit.com/UnnamedMinecrafter/Server/master/infowiki/scriptloader.js";
-document.head.append(script);
-};r();'>InfoWiki</a>
-Bitte diesen link als Lesezeichen speichern und aufrufen, um interaktive Medien zu Starten.
-<video src="https://raw.githubusercontent.com/UnnamedMinecrafter/Server/master/infowiki/infowiki" width="80%" controls="true"></video>
-</body>
+	<body>
+		<div id="linkwrapper">
+			<a id="link" href='
+			javascript:function r(){
+			let script = document.createElement("script");
+			script.src = "https://rawgit.com/UnnamedMinecrafter/Server/master/infowiki/scriptloader.js";
+			document.head.append(script);
+			};r();'>InfoWiki</a>
+		</div><br><br>
+		<div id="textwrapper">
+			^ Bitte diesen link als Lesezeichen speichern und aufrufen, um interaktive Medien zu Starten.
+		</div><br><br>
+		<video src="https://raw.githubusercontent.com/UnnamedMinecrafter/Server/master/infowiki/infowiki" width="80%" controls="true"></video>
+	</body>
 </html>

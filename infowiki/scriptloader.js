@@ -4,10 +4,15 @@ let interactions = [];
 interactions.push({
 	name:/Interaction#1/g,
 	html:`
-		<div id="interaction-Zahlendarstellung">
-			Binär:<input id="input-binaer"><br>
-			Positiv:<input id="input-positiv"><br>
-			Zweierkomplement:<input id="input-zweierkomplement">
+		<div id="interaction-Zahlendarstellung" style="
+				border: 5px solid #d5e7f0; border-radius: 10px; padding: 5px;
+				background-color: #e9f2f5;
+				display: grid;
+				grid-template-columns: auto 1fr;
+			">
+			<div>Binär: </div>				<div><input id="input-binaer"></div>
+			<div>Positiv: </div>			<div><input id="input-positiv"></div>
+			<div>Zweierkomplement: </div>	<div><input id="input-zweierkomplement"></div>
 		</div>
 	`,
 	script:()=>{
